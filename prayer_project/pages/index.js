@@ -1,7 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import Image from 'next/image';
+import { Inter } from '@next/font/google';
+import styles from '../styles/Home.module.css';
+import Link from 'next/link';
+import Header from '../components/Header';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +17,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
+        {/* This section here is currently the website header*/}
+        {/* <div className={styles.description}>
           <p>
             Get started by editing&nbsp;
             <code className={styles.code}>pages/index.js</code>
@@ -38,8 +41,8 @@ export default function Home() {
               <p>Joseph Nicolas </p>
             </a>
           </div>
-        </div>
-
+        </div> */}
+        {/* <Header/> */}
         <div className={styles.center}>
           <Image
             className={styles.logo}
@@ -85,15 +88,27 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             <button className={inter.className}>
-              SIGN UP
+              <Link href="/signup">
+                SIGN UP
+              </Link>
+
             </button>
           </a>
-            <table className={styles.table}>
-              <tr>
-                <td>Partner 1</td>
-                <td>Partner 2</td>
-              </tr>
-            </table>
+          {/*Eventually the table values will come from a database that is created in the backend*/}
+          <table className={styles.table}>
+            <tr>
+              <td>Partner A</td>
+              <td>Partner B</td>
+            </tr>
+            <tr>
+              <td>Person 1</td>
+              <td>Person 2</td>
+            </tr>
+            <tr>
+              <td>Person 3</td>
+              <td>Person 4</td>
+            </tr>
+          </table>
         </div>
 
       </main>
