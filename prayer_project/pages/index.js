@@ -4,6 +4,7 @@ import { Inter } from '@next/font/google';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 import Header from '../components/Header';
+import Partners from '../components/Partners';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -71,12 +72,15 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
+            <h1 className={inter.className}>
+              Prayer Project
+            </h1>
             <h2 className={inter.className}>
               Instructions
             </h2>
             <ol className={inter.className}>
               <li> Click on the SIGN UP button below to fill out the form. This allows you to be partnered with a prayer partner for the upcoming month.</li>
-              <li> Once the new month starts you will receive an email about who your paryer partner is and their 3 prayer requests.</li>
+              <li> Once the new month starts you will receive an email about who your prayer partner is and their 3 prayer requests.</li>
               <li> Communicate how you want to pray with your partner. For example, meeting in person, organizing a call, praying on your own time, etc.</li>
             </ol>
           </a>
@@ -95,22 +99,9 @@ export default function Home() {
             </button>
           </a>
           {/*Eventually the table values will come from a database that is created in the backend*/}
-          <table className={styles.table}>
-            <tr>
-              <td>Partner A</td>
-              <td>Partner B</td>
-            </tr>
-            <tr>
-              <td>Person 1</td>
-              <td>Person 2</td>
-            </tr>
-            <tr>
-              <td>Person 3</td>
-              <td>Person 4</td>
-            </tr>
-          </table>
+          {/*Partners currently takes information from a fake backend database and puts it into a table */}
+          <Partners/>
         </div>
-
       </main>
     </>
   )
