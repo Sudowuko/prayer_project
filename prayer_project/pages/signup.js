@@ -5,108 +5,108 @@ import { Inter } from '@next/font/google';
 
 const inter = Inter({ subsets: ['latin'] })
 
+//TODO: Return an object instead of setting each object individually
 function Signup() {
-    const [item1, setItem1] = useState('');
-    const [item2, setItem2] = useState('');
-    const [item3, setItem3] = useState('');
-    const [request1, setRequest1] = useState('');
-    const [request2, setRequest2] = useState('');
-    const [request3, setRequest3] = useState('');
-    const [email, setEmail] = useState('');
-
+    const [formData, setFormData] = useState({
+        fname: '',
+        lname: '',
+        item1: '',
+        item2: '',
+        item3: '',
+        request1: '',
+        request2: '',
+        request3: '',
+        email: '',
+    });
+    
     // Temporarily local storage, will use a database later
     function handleSubmit(event) {
         event.preventDefault();
-        localStorage.setItem('item-1', item1);
-        localStorage.setItem('item-2', item2);
-        localStorage.setItem('item-3', item3);
-        localStorage.setItem('request-1', request1);
-        localStorage.setItem('request-2', request2);
-        localStorage.setItem('request-3', request3);
-        localStorage.setItem('email', email);
+        let dataArray = JSON.parse(localStorage.getItem('formDataArray')) || [];
+        dataArray.push(formData);
+        localStorage.setItem('formDataArray', JSON.stringify(dataArray));
     }
-    function handleChangeItem1(event) {
-        setItem1(event.target.value);
+
+    function handleChange(event, fieldName) {
+        setFormData({ ...formData, [fieldName]: event.target.value });
     }
-    function handleChangeItem2(event) {
-        setItem2(event.target.value);
-    }
-    function handleChangeItem3(event) {
-        setItem3(event.target.value);
-    }
-    function handleChangeRequest1(event) {
-        setRequest1(event.target.value);
-    }
-    function handleChangeRequest2(event) {
-        setRequest2(event.target.value);
-    }
-    function handleChangeRequest3(event) {
-        setRequest3(event.target.value);
-    }
-    function handleChangeEmail(event) {
-        setEmail(event.target.value);
-    }
+   
     return (
         <form onSubmit={handleSubmit}>
             <main className={styles.main}>
                 <h2 className={inter.className}>
                     Sign Up Form!
                 </h2>
+                <label>What is your first name?</label>
+                <input
+                    type="text"
+                    id="fname"
+                    name="fname"
+                    value={formData.fname}
+                    onChange={(event) => handleChange(event, 'fname')}
+                />
+                 <label>What is your last name?</label>
+                <input
+                    type="text"
+                    id="lname"
+                    name="lname"
+                    value={formData.lname}
+                    onChange={(event) => handleChange(event, 'lname')}
+                />
                 <label>What are your 3 praise items?</label>
                 <input
                     type="text"
                     id="item-1"
                     name="item-1"
-                    value={item1}
-                    onChange={handleChangeItem1}
+                    value={formData.item1}
+                    onChange={(event) => handleChange(event, 'item1')}
                 />
-                <input
+               <input
                     type="text"
                     id="item-2"
                     name="item-2"
-                    value={item2}
-                    onChange={handleChangeItem2}
+                    value={formData.item2}
+                    onChange={(event) => handleChange(event, 'item2')}
                 />
                 <input
                     type="text"
                     id="item-3"
                     name="item-3"
-                    value={item3}
-                    onChange={handleChangeItem3}
+                    value={formData.item3}
+                    onChange={(event) => handleChange(event, 'item3')}
                 />
                 <label>What are your 3 prayer request?</label>
                 <input
                     type="text"
                     id="request-1"
                     name="request-1"
-                    value={request1}
-                    onChange={handleChangeRequest1}
+                    value={formData.request1}
+                    onChange={(event) => handleChange(event, 'request1')}
                 />
-                <input
+                 <input
                     type="text"
                     id="request-2"
                     name="request-2"
-                    value={request2}
-                    onChange={handleChangeRequest2}
+                    value={formData.request2}
+                    onChange={(event) => handleChange(event, 'request2')}
                 />
                 <input
                     type="text"
                     id="request-3"
                     name="request-3"
-                    value={request3}
-                    onChange={handleChangeRequest3}
+                    value={formData.request3}
+                    onChange={(event) => handleChange(event, 'request3')}
                 />
                 <label>What is your email?</label>
                 <input
                     type="text"
                     id="email"
                     name="email"
-                    value={email}
-                    onChange={handleChangeEmail}
+                    value={formData.email}
+                    onChange={(event) => handleChange(event, 'email')}
                 />
                 <input type="submit" value="Submit" className={styles.card} />
             </main>
-
         </form>
     );
 }
