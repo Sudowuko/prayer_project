@@ -16,7 +16,6 @@ function Signup() {
         request1: '',
         request2: '',
         request3: '',
-        email: '',
     });
     
     // Temporarily local storage, will use a database later
@@ -96,14 +95,6 @@ function Signup() {
                     name="request-3"
                     value={formData.request3}
                     onChange={(event) => handleChange(event, 'request3')}
-                />
-                <label>What is your email?</label>
-                <input
-                    type="text"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={(event) => handleChange(event, 'email')}
                 />
                 <input type="submit" value="Submit" className={styles.card} />
             </main>
