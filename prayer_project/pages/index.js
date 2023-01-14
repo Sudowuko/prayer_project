@@ -64,10 +64,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.singleColumn}>
+        <div className={styles.content}>
 
           <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className={styles.card}
             target="_blank"
             rel="noopener noreferrer"
@@ -79,14 +78,15 @@ export default function Home() {
               Instructions
             </h2>
             <ol className={inter.className}>
+              <li> Enter your group code on the top right corner to find your prayer group </li>
               <li> Click on the SIGN UP button below to fill out the form. This allows you to be partnered with a prayer partner for the upcoming month.</li>
-              <li> Once the new month starts you will receive an email about who your prayer partner is and their 3 prayer requests.</li>
+              <li> Once a new month starts, scroll through this page to find your prayer partner. </li>
+              <li> Click on the your partner's box to see their praise items and prayer requests. </li>
               <li> Communicate how you want to pray with your partner. For example, meeting in person, organizing a call, praying on your own time, etc.</li>
             </ol>
           </a>
 
           <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className={styles.card}
             target="_blank"
             rel="noopener noreferrer"
