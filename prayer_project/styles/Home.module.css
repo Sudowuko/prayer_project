@@ -62,7 +62,7 @@
   padding: 12px; /* Add some padding to the cells */
 }
 
-.table thead {
+.table th {
   background-color: #f2f2f2; /* Set the background color of the header cells */
   font-weight: bold; /* Make the header text bold */
   text-align: left; /* Align the header text to the left */

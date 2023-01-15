@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css'
 //If the number of participants end up being odd, make a use case where there is one group of 3
 function Partners() {
     const [partner, setPartner] = useState([]);
+    const [info, setInfo] = useState(null);
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
@@ -13,10 +14,13 @@ function Partners() {
             .catch(error => console.log(error));
     }, []);
 
+    function handleClick(person) {
+        setInfo(person)
+    }
+
     return (
         <div>
             {partner.map((person, index) => {
-
                 if (index % 2 === 0 && partner[index + 1]) {
                     const partner1 = person
                     const partner2 = partner[index + 1]
@@ -32,18 +36,16 @@ function Partners() {
                             }
                             <tbody>
                                 <tr>
-                                    <td>{partner1.name}</td>
-                                    <td>{partner2.name}</td>
-                                </tr>
-                                <tr>
-                                    <td>{partner1.email}</td>
-                                    <td>{partner2.email}</td>
+                                    <td onClick={() => handleClick(partner1)}>
+                                        {info === partner1 ? partner1.name + ' clicked' : partner1.name}
+                                    </td>
+                                    <td onClick={() => handleClick(partner2)}>
+                                        {info === partner2 ? partner2.name + ' clicked' : partner2.name}
+                                    </td>
                                 </tr>
                             </tbody>
                             <br></br>
                         </table>
-
-
                     );
                 }
                 return null;
