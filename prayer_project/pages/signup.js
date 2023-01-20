@@ -20,6 +20,8 @@ function Signup() {
     });
 
     // Temporarily local storage, will use a database later
+    // Will connect this to a Notion Database
+
     function handleSubmit(event) {
         event.preventDefault();
         let dataArray = JSON.parse(localStorage.getItem('formDataArray')) || [];
@@ -33,7 +35,6 @@ function Signup() {
 
     return (
         <>
-
             <form onSubmit={handleSubmit}>
                 <main className={styles.main}>
                     <h2 className={inter.className}>
@@ -44,6 +45,7 @@ function Signup() {
                         type="text"
                         id="fname"
                         name="fname"
+                        required
                         value={formData.fname}
                         onChange={(event) => handleChange(event, 'fname')}
                     />
@@ -52,6 +54,7 @@ function Signup() {
                         type="text"
                         id="lname"
                         name="lname"
+                        required
                         value={formData.lname}
                         onChange={(event) => handleChange(event, 'lname')}
                     />

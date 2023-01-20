@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css'
 
 //Tables needs styling, names in columns 1 and 2 are too close together
 //If the number of participants end up being odd, make a use case where there is one group of 3
+//For a group of 3 it should still take up the same amount of space as one row
 function Partners() {
     const [partner, setPartner] = useState([]);
     const [info, setInfo] = useState(null);
