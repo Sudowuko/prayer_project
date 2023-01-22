@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from '../styles/Home.module.css'
+import axios from 'axios';
+
 
 //Tables needs styling, names in columns 1 and 2 are too close together
 //If the number of participants end up being odd, make a use case where there is one group of 3
@@ -7,6 +9,24 @@ import styles from '../styles/Home.module.css'
 function Partners() {
     const [partner, setPartner] = useState([]);
     const [info, setInfo] = useState(null);
+    const [testData, setTestData] = useState(null);
+
+    const API_KEY = process.env.NOTION_API_KEY;
+
+    const fetchData = async () => {
+        const { data } = await axios.post(`https://api.notion.com/v3/search`, {
+            filter: {
+                property: 'object',
+                value: 'database'
+            },
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_KEY}`
+            }
+        });
+        return data.results;
+    }
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
