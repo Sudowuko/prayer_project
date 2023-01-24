@@ -2,6 +2,15 @@ import React, { useState, useEffect } from "react";
 import styles from '../styles/Home.module.css'
 import axios from 'axios';
 
+import { Client } from "@notionhq/client"
+
+const notion = new Client({ auth: process.env.NOTION_API_KEY })
+
+const databaseId = process.env.NOTION_DATABASE_ID
+
+//const API_KEY = process.env.NOTION_API_KEY;
+
+
 
 //Tables needs styling, names in columns 1 and 2 are too close together
 //If the number of participants end up being odd, make a use case where there is one group of 3
@@ -11,22 +20,36 @@ function Partners() {
     const [info, setInfo] = useState(null);
     const [testData, setTestData] = useState(null);
 
-    const API_KEY = process.env.NOTION_API_KEY;
 
-    const fetchData = async () => {
-        const { data } = await axios.post(`https://api.notion.com/v3/search`, {
-            filter: {
-                property: 'object',
-                value: 'database'
-            },
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`
-            }
-        });
-        return data.results;
-    }
+    const notion = new Client({ auth: process.env.NOTION_KEY })
+
+    const databaseId = process.env.NOTION_DATABASE_ID
+    
+    // async function addItem(text) {
+    //   try {
+    //     const response = await notion.pages.create({
+    //       parent: { database_id: databaseId },
+    //       properties: {
+    //         title: {
+    //           title:[
+    //             {
+    //               "text": {
+    //                 "content": text
+    //               }
+    //             }
+    //           ]
+    //         }
+    //       },
+    //     })
+    //     console.log(response)
+    //     console.log("Success! Entry added.")
+    //   } catch (error) {
+    //     console.error(error.body)
+    //   }
+    // }
+    
+    // addItem("Yurts in Big Sur, California")
+    
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
