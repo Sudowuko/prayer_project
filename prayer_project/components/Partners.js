@@ -4,9 +4,9 @@ import axios from 'axios';
 
 import { Client } from "@notionhq/client"
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY })
+// const notion = new Client({ auth: process.env.NOTION_API_KEY })
 
-const databaseId = process.env.NOTION_DATABASE_ID
+// const databaseId = process.env.NOTION_DATABASE_ID
 
 //const API_KEY = process.env.NOTION_API_KEY;
 
@@ -18,84 +18,85 @@ const databaseId = process.env.NOTION_DATABASE_ID
 function Partners() {
     const [partner, setPartner] = useState([]);
     const [info, setInfo] = useState(null);
-    const [testData, setTestData] = useState(null);
+    const [newRow, setNewRow] = useState({});
+
+    const database_id = process.env.NOTION_DATABASE_ID
+    const notion = new Client({ auth: process.env.NOTION_API_KEY })
 
 
-    const notion = new Client({ auth: process.env.NOTION_KEY })
+    const handleButtonClick = async () => {
+        const newRow = {
+            Title: "Test",
+        };
 
-    const databaseId = process.env.NOTION_DATABASE_ID
-    
-    // async function addItem(text) {
-    //   try {
-    //     const response = await notion.pages.create({
-    //       parent: { database_id: databaseId },
-    //       properties: {
-    //         title: {
-    //           title:[
-    //             {
-    //               "text": {
-    //                 "content": text
-    //               }
-    //             }
-    //           ]
-    //         }
-    //       },
-    //     })
-    //     console.log(response)
-    //     console.log("Success! Entry added.")
-    //   } catch (error) {
-    //     console.error(error.body)
-    //   }
-    // }
-    
-    // addItem("Yurts in Big Sur, California")
-    
+        const { results } = await notion.databases.query({
+            database_id: process.env.NOTION_DATABASE_ID,
+            properties: [{ Title: "rich_text" }],
+            filter: {
+                property: "Name",
+                value: newRow.Title,
+            },
+        });
 
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response => response.json())
-            .then(data => setPartner(data))
-            .catch(error => console.log(error));
-    }, []);
+        if (!results.length) {
+            await notion.pages.create({
+              properties: {
+                Title: {
+                  title: newRow.Title,
+                },
+              },
+            });
+          }
+        };
 
-    function handleClick(person) {
-        setInfo(person)
+        useEffect(() => {
+            fetch('https://jsonplaceholder.typicode.com/users')
+                .then(response => response.json())
+                .then(data => setPartner(data))
+                .catch(error => console.log(error));
+        }, []);
+
+        function handleClick(person) {
+            setInfo(person)
+        }
+
+        return (
+            <div>
+                {console.log(process.env.NOTION_API_KEY)}
+                {console.log(process.env.NOTION_DATABASE_ID)}
+                <button onClick={handleButtonClick}>Add Test Row 1</button>
+                {partner.map((person, index) => {
+                    if (index % 2 === 0 && partner[index + 1]) {
+                        const partner1 = person
+                        const partner2 = partner[index + 1]
+                        return (
+                            <table key={index} className={styles.table}>
+                                {index === 0 &&
+                                    <thead>
+                                        <tr>
+                                            <th>Partner 1</th>
+                                            <th>Partner 2</th>
+                                        </tr>
+                                    </thead>
+                                }
+                                <tbody>
+                                    <tr>
+                                        <td onClick={() => handleClick(partner1)}>
+                                            {info === partner1 ? partner1.name + ' clicked' : partner1.name}
+                                        </td>
+                                        <td onClick={() => handleClick(partner2)}>
+                                            {info === partner2 ? partner2.name + ' clicked' : partner2.name}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <br></br>
+                            </table>
+                        );
+                    }
+                    return null;
+                })}
+            </div>
+        );
     }
 
-    return (
-        <div>
-            {partner.map((person, index) => {
-                if (index % 2 === 0 && partner[index + 1]) {
-                    const partner1 = person
-                    const partner2 = partner[index + 1]
-                    return (
-                        <table key={index} className={styles.table}>
-                            {index === 0 &&
-                                <thead>
-                                    <tr>
-                                        <th>Partner 1</th>
-                                        <th>Partner 2</th>
-                                    </tr>
-                                </thead>
-                            }
-                            <tbody>
-                                <tr>
-                                    <td onClick={() => handleClick(partner1)}>
-                                        {info === partner1 ? partner1.name + ' clicked' : partner1.name}
-                                    </td>
-                                    <td onClick={() => handleClick(partner2)}>
-                                        {info === partner2 ? partner2.name + ' clicked' : partner2.name}
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <br></br>
-                        </table>
-                    );
-                }
-                return null;
-            })}
-        </div>
-    );
-}
-
-export default Partners;
+    export default Partners;
