@@ -1,14 +1,13 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import { Inter } from '@next/font/google';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 import Header from '../components/Header';
-import Partners from '../components/Partners';
-
+import Individuals from '../components/Individuals';
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home()  {
+
   return (
     <>
       <Head>
@@ -18,25 +17,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
 
         <div className={styles.content}>
           <a
@@ -58,7 +38,6 @@ export default function Home() {
               <li> Communicate how you want to pray with your partner. For example, meeting in person, organizing a call, praying on your own time, etc.</li>
             </ol>
           </a>
-
           <a
             className={styles.card}
             target="_blank"
@@ -71,9 +50,7 @@ export default function Home() {
 
             </button>
           </a>
-          {/*Eventually the table values will come from a database that is created in the backend*/}
-          {/*Partners currently takes information from a fake backend database and puts it into a table */}
-          <Partners/>
+          <Individuals/>
         </div>
       </main>
     </>
